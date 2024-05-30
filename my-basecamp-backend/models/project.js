@@ -10,11 +10,19 @@ const Project = sequelize.define('Project', {
   description: {
     type: DataTypes.STRING,
   },
+  ownerId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: User,
+      key: 'id',
+    },
+  },
 }, {
   timestamps: true, // Add createdAt and updatedAt timestamps
 });
 
-Project.belongsTo(User, { as: 'owner' });
+Project.belongsTo(User, { as: 'owner', foreignKey: 'ownerId' });
 Project.belongsToMany(User, { through: 'ProjectMembers', as: 'members' });
 
 module.exports = Project;

@@ -12,10 +12,12 @@ mkdir config controllers models routes middleware
 touch app.js .gitignore .env
 
 # running the application
-- create the database file
+- create the database file: 
 touch database.sqlite
-- run the application
+- run the application:
 node app.js
+- OR Run the application in the development server (In development server, nodemon restarts the server automatically whenever it detects a file change in the directory):
+npm run dev 
 
 ****************************************
 # Testing API endpoints with Postman 
