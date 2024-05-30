@@ -69,7 +69,7 @@ exports.deleteProject = async (req, res) => {
     if (!result) {
       return res.status(404).json({ error: 'Project not found' });
     }
-    res.status(204).send();
+    res.status(204).send(); // 204 No Content status (standard practice) cannot contain message body
   } catch (error) {
     console.error('Failed to delete project:', error);
     res.status(500).json({ error: 'Failed to delete project' });
