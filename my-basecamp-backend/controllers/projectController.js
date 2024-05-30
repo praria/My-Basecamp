@@ -3,10 +3,16 @@ const Project = require('../models/project');
 
 exports.createProject = async (req, res) => {
   try {
-    const project = await Project.create(req.body);
+    const { name, description } = req.body;
+    const ownerId = req.user.id; // Assuming req.user contains the authenticated user's info
+    if (!name) {
+      return res.status(400).json({ error: 'Project name is required' });
+    }
+
+    const project = await Project.create({ name, description, ownerId });
     res.status(201).json(project);
   } catch (error) {
-    console.error('Failed to create project:', error); // Log the error details
+    console.error('Failed to create project:', error);
     res.status(500).json({ error: 'Failed to create project' });
   }
 };
@@ -58,13 +64,14 @@ exports.getProjectById = async (req, res) => {
 
 exports.deleteProject = async (req, res) => {
   try {
-    const result = await Project.destroy({ where: { id: req.params.projectId } });
+    const { projectId } = req.params;
+    const result = await Project.destroy({ where: { id: projectId } });
     if (!result) {
       return res.status(404).json({ error: 'Project not found' });
     }
     res.status(204).send();
   } catch (error) {
-    console.error('Failed to delete project:', error); // Log the error details
+    console.error('Failed to delete project:', error);
     res.status(500).json({ error: 'Failed to delete project' });
   }
 };

@@ -16,6 +16,8 @@ touch app.js .gitignore .env
 touch database.sqlite
 - run the application
 node app.js
+- OR Run the application in the development server (In development server, nodemon restarts the server automatically whenever it detects a file change in the directory)
+npm run dev 
 
 ****************************************
 # Testing API endpoints with Postman 
