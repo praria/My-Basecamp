@@ -3,11 +3,16 @@ const bodyParser = require('body-parser');
 const sequelize = require('./config/database');
 const userRoutes = require('./routes/userRoutes');
 const projectRoutes = require('./routes/projectRoutes'); 
+const taskRoutes = require('./routes/taskRoutes');
 require('dotenv').config();
 
 const app = express();
 
 app.use(bodyParser.json());
+
+app.use('/api/users', userRoutes);
+app.use('/api/projects', projectRoutes); 
+app.use('/api/projects/:projectId/tasks', taskRoutes);
 
 // Root route handler
 app.get('/', (req, res) => {
@@ -37,8 +42,6 @@ app.get('/', (req, res) => {
   `);
 });
 
-app.use('/api/users', userRoutes);
-app.use('/api/projects', projectRoutes); 
 
 sequelize.sync()
   .then(() => {

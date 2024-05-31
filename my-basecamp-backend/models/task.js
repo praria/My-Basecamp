@@ -6,19 +6,40 @@ const User = require('./user');
 const Task = sequelize.define('Task', {
   title: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   description: {
-    type: DataTypes.TEXT
+    type: DataTypes.STRING,
   },
   status: {
     type: DataTypes.STRING,
-    defaultValue: 'pending'
-  }
+    defaultValue: 'pending',
+  },
+  dueDate: {
+    type: DataTypes.DATE,
+  },
+  projectId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Project,
+      key: 'id',
+    },
+  },
+  assignedTo: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: User,
+      key: 'id',
+    },
+  },
+}, {
+  timestamps: true,
 });
 
-Task.belongsTo(Project);
-Task.belongsTo(User, { as: 'assignee' });
+Project.hasMany(Task, { foreignKey: 'projectId' });
+Task.belongsTo(Project, { foreignKey: 'projectId' });
+
+User.hasMany(Task, { foreignKey: 'assignedTo' });
+Task.belongsTo(User, { foreignKey: 'assignedTo' });
 
 module.exports = Task;
-

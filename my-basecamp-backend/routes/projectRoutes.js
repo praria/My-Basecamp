@@ -4,11 +4,15 @@ const express = require('express');
 const router = express.Router();
 const projectController = require('../controllers/projectController');
 const authMiddleware = require('../middleware/auth');
+const taskRoutes = require('./taskRoutes');
 
 router.post('/', authMiddleware, projectController.createProject);
 router.put('/:projectId', authMiddleware, projectController.updateProject);
 router.get('/', authMiddleware, projectController.getAllProjects);
 router.get('/:projectId', authMiddleware, projectController.getProjectById);
 router.delete('/:projectId', authMiddleware, projectController.deleteProject);
+
+// Nest task routes under project routes
+router.use('/:projectId/tasks', taskRoutes);
 
 module.exports = router;

@@ -113,10 +113,12 @@ Headers:
     . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
 JSON Body:
 {
-  "title": "Task 1",
-  "description": "This is a sample task",
+  "title": "Sample Task in Project 10",
+  "description": "This is a Project 10 sample task",
   "status": "pending",
-  "assigneeId": 1
+  "dueDate": "2024-06-12",
+  "projectId": 10,
+  "assignedTo": 1
 }
 Response: Should return the task details
 
