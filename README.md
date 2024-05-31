@@ -124,30 +124,40 @@ Response: Should return the task details
 
 # 3.2 Get all Tasks in a Project
 request type - GET
-URL: http://localhost:3000/api/projects/:projectId/tasks (Note: replace projectId)
+URL: http://localhost:3000/api/projects/:projectId/tasks 
 Headers: 
     . Content-type: application/json
     . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
 Response: Should return a list of tasks for the specified project
 
-# 3.3 Update a Task
+# 3.3 Get a single Task by Id
+request type - GET
+URL: http://localhost:3000/api/projects/:projectId/tasks/:taskId 
+Headers: 
+    . Content-type: application/json
+    . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
+Response: Should return a specified task for the specified project
+
+# 3.4 Update a Task
 request type - PUT
-URL: http://localhost:3000/api/tasks/:taskId (Note: replace projectId)
+URL: http://localhost:3000/api/projects/:projectId/tasks/:taskId
 Headers: 
     . Content-type: application/json
     . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
 JSON Body:
 {
-  "title": "Task 1 Updated",
-  "description": "This is an updated sample task",
-  "status": "completed",
-  "assigneeId": 2
+  "title": "Sample Task in Project 10",
+  "description": "This is a Project 10 sample task",
+  "status": "Completed",
+  "dueDate": "2024-06-12",
+  "projectId": 10,
+  "assignedTo": 1
 }
 Response: Should return the updated task details
 
-# 3.4 Delete a Task
+# 3.5 Delete a Task
 request type - POST
-URL: http://localhost:3000/api/tasks/:taskId (Note: replace projectId)
+URL: http://localhost:3000/api/projects/:projectId/tasks/:taskId
 Headers: 
     . Content-type: application/json
     . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
