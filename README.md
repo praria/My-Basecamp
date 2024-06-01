@@ -7,6 +7,9 @@ npm init -y
 # Install the necessary dependencies
 npm install express sqlite3 sequelize bcryptjs jsonwebtoken body-parser dotenv
 
+# Install file handling Packages in Node.js application using Express framework
+npm install multer --save 
+
 # create the project structure
 mkdir config controllers models routes middleware
 touch app.js .gitignore .env
@@ -169,9 +172,8 @@ Response: Should confirm the deletion
 # 4.1 Upload a File
 *********************
 request type - POST
-URL: http://localhost:3000/api/projects/:projectId/files (Note: replace projectId)
-Headers:    
-    . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
+URL: http://localhost:3000/api/projects/:projectId/files/upload
+Headers:  
     . Content-type: multipart/form-data
 Body:
     . In the 'Body' tab, select 'form-data'
@@ -181,17 +183,13 @@ Response: Should return a file details and its URL or path
 # 4.2 Download a File
 *********************
 request type - GET
-URL: http://localhost:3000/api/projects/:projectId/files/:fileId (Note: replace projectId and fileId)
-Headers:    
-    . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
+URL: http://localhost:3000/api/files/:fileId/download
 Response: Should start the file download
 
 # 4.3 Delete a File
 *********************
 request type - DELETE
-URL: http://localhost:3000/api/projects/:projectId/files/:fileId (Note: replace projectId and fileId)
-Headers:    
-    . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
+URL: http://localhost:3000/api/files/:fileId
 Response: Should confirm the deletion
 
 

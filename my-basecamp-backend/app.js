@@ -4,15 +4,21 @@ const sequelize = require('./config/database');
 const userRoutes = require('./routes/userRoutes');
 const projectRoutes = require('./routes/projectRoutes'); 
 const taskRoutes = require('./routes/taskRoutes');
+const fileRoutes = require('./routes/fileRoutes');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
 
 app.use(bodyParser.json());
 
+// Serve static files from the uploads directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes); 
 app.use('/api/projects/:projectId/tasks', taskRoutes);
+app.use('/api', fileRoutes);
 
 // Root route handler
 app.get('/', (req, res) => {
