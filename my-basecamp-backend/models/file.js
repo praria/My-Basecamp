@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Project = require('./project');
 
 const File = sequelize.define('File', {
   filename: {
@@ -11,19 +10,25 @@ const File = sequelize.define('File', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  projectId: {
+  mimetype: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  size: {
     type: DataTypes.INTEGER,
     allowNull: false,
+  },
+  projectId: {
+    type: DataTypes.INTEGER,
     references: {
-      model: Project,
-      key: 'id'
-    }
-  }
+      model: 'Project',
+      key: 'id',
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  },
 }, {
   timestamps: true,
 });
-
-Project.hasMany(File, { foreignKey: 'projectId' });
-File.belongsTo(Project, { foreignKey: 'projectId' });
 
 module.exports = File;

@@ -25,4 +25,9 @@ const Project = sequelize.define('Project', {
 Project.belongsTo(User, { as: 'owner', foreignKey: 'ownerId' });
 Project.belongsToMany(User, { through: 'ProjectMembers', as: 'members' });
 
+const File = require('./file');
+Project.hasMany(File, { foreignKey: 'projectId', as: 'files' });
+File.belongsTo(Project, { foreignKey: 'projectId', as: 'project' });
+
+
 module.exports = Project;
