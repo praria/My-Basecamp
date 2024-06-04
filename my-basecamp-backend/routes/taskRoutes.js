@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true }); // mergeParams allows access to projectId
-const taskController = require('../controllers/taskController');
+const task = require('../controllers/taskController');
 const authMiddleware = require('../middleware/auth');
 
-router.post('/', authMiddleware, taskController.createTask);
-router.get('/', authMiddleware, taskController.getAllTasks);
-router.get('/:taskId', authMiddleware, taskController.getTaskById);
-router.put('/:taskId', authMiddleware, taskController.updateTask);
-router.delete('/:taskId', authMiddleware, taskController.deleteTask);
+
+router.post('/', authMiddleware, task.createTask);
+router.get('/', authMiddleware, task.getAllTasks);
+router.get('/:taskId', authMiddleware, task.getTaskById);
+router.put('/:taskId', authMiddleware, task.updateTask);
+router.delete('/:taskId', authMiddleware, task.deleteTask);
 
 module.exports = router;
+
