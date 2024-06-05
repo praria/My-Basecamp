@@ -9,6 +9,7 @@ const regularUserRoutes = require('./routes/regularUserRoutes');
 const projectRoutes = require('./routes/projectRoutes'); 
 const taskRoutes = require('./routes/taskRoutes');
 const fileRoutes = require('./routes/fileRoutes');
+const { authenticate, authorize } = require('./middleware/auth');
 const path = require('path');
 require('dotenv').config();
 
@@ -19,13 +20,24 @@ app.use(express.json()); // Use built-in express.json() instead of body-parser
 // Serve static files from the uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// public routes
 app.use('/api/users', allUserRoutes);
-app.use('/api/admin', adminRoutes);
-app.use('/api/projectManager', projectManagerRoutes);
-app.use('/api/regularUser', regularUserRoutes);
-app.use('/api/projects', projectRoutes); 
-app.use('/api/projects/:projectId/tasks', taskRoutes);
-app.use('/api/files', fileRoutes);
+
+
+// app.use('/api/admin', adminRoutes);
+// app.use('/api/projectManager', projectManagerRoutes);
+// app.use('/api/regularUser', regularUserRoutes);
+// app.use('/api/projects', projectRoutes); 
+// app.use('/api/projects/:projectId/tasks', taskRoutes);
+// app.use('/api/files', fileRoutes);
+
+// Protected routes
+app.use('/api/admin', authenticate, authorize(['admin']), adminRoutes);
+app.use('/api/project-manager', authenticate, authorize(['project_manager']), projectManagerRoutes);
+app.use('/api/regular-user', authenticate, authorize(['regular_user']), regularUserRoutes);
+app.use('/api/projects', authenticate, projectRoutes);
+app.use('/api/tasks', authenticate, taskRoutes);
+app.use('/api/files', authenticate, fileRoutes);
 
 // Root route handler
 app.get('/', (req, res) => {
