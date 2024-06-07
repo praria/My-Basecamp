@@ -23,14 +23,6 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // public routes
 app.use('/api/users', allUserRoutes);
 
-
-// app.use('/api/admin', adminRoutes);
-// app.use('/api/projectManager', projectManagerRoutes);
-// app.use('/api/regularUser', regularUserRoutes);
-// app.use('/api/projects', projectRoutes); 
-// app.use('/api/projects/:projectId/tasks', taskRoutes);
-// app.use('/api/files', fileRoutes);
-
 // Protected routes
 app.use('/api/admin', authenticate, authorize(['admin']), adminRoutes);
 app.use('/api/project-manager', authenticate, authorize(['project_manager']), projectManagerRoutes);

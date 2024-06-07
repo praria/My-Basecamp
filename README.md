@@ -1,7 +1,9 @@
 # My-Basecamp
+***************
 My Basecamp is a project management application designed to help teams efficiently organize and manage their projects, tasks, and files. It provides a user-friendly interface for users to create, update, and track projects and tasks, as well as upload and manage project-related files.
 
 # Key Features
+****************
 
 # 1 User Authentication and Authorization
 - Users can register and log in to the application securely.
@@ -31,7 +33,7 @@ My Basecamp is a project management application designed to help teams efficient
 # Permissions:
 - Read projects they are assigned to
 - Read and update tasks assigned to them
-- Upload, download, and delete files assigned to them
+- download files assigned to them
 - Update their own profile information
 
 # 5 Project Management
@@ -51,7 +53,9 @@ My Basecamp is a project management application designed to help teams efficient
 - Download files that are uploaded to the application.
 - Delete files when they are no longer needed.
 
-# 7 Architecture
+# Architecture
+***************
+
 The application follows a Model-View-Controller (MVC) architecture for structured development and maintenance. Here's an overview of each component:
 # Models: 
 Represent the data structures used in the application. These include models for users, projects, tasks, and files.
@@ -60,9 +64,12 @@ Handle the application's logic and business rules. Each controller corresponds t
 # Routes: 
 Define the endpoints and route handlers for handling HTTP requests. Routes are organized based on the resource they operate on (e.g., user routes, project routes, task routes, file routes).
 # Middleware: 
-Provides reusable functions to intercept and process incoming requests. Middleware is used for authentication and authorization to secure routes and restrict access based on user roles.
+Provides reusable functions to intercept and process incoming requests. Middleware is used for authentication and authorization to secure routes and restrict access based on user 
+roles.
 
-# 8 Technologies Used: 
+# Technologies Used:
+**********************
+
 - Node.js: JavaScript runtime for server-side development.
 - Express.js: Web application framework for building APIs.
 - JWT (JSON Web Tokens): Used for user authentication and authorization.
@@ -70,6 +77,28 @@ Provides reusable functions to intercept and process incoming requests. Middlewa
 - bcrypt: Library for hashing passwords securely.
 - Sequelize: ORM (Object-Relational Mapping) for interacting with the database.
 - SQLite: Lightweight relational database management system for data storage.
+
+# Usage
+***********
+
+- To use My Basecamp, follow these steps:
+# User Registration and Authentication:
+-Register an account using the /register endpoint with appropriate credentials.
+-Log in using the /login endpoint to obtain an authentication token.
+# Project Management:
+- Create a new project using the /projects endpoint with a name and description.
+- Update project details using the /projects/:projectId endpoint with the project ID.
+- View all projects using the /projects endpoint or retrieve a specific project by ID using /projects/:projectId.
+- Delete projects using the /projects/:projectId endpoint with the project ID.
+# Task Management:
+- Create tasks within a project using the /projects/:projectId/tasks endpoint with task details.
+- Update task details using the /projects/:projectId/tasks/:taskId endpoint with the task ID.
+- View all tasks within a project using the /projects/:projectId/tasks endpoint or retrieve a specific task by ID using /projects/:projectId/tasks/:taskId.
+- Delete tasks using the /projects/:projectId/tasks/:taskId endpoint with the task ID.
+# File Management:
+- Upload files to a project using the /projects/:projectId/files/upload endpoint.
+- Download files using the /files/:fileId/download endpoint with the file ID.
+- Delete files using the /files/:fileId endpoint with the file ID.
 
 # Conclusion
 My Basecamp provides a robust platform for managing projects, tasks, and files, offering essential features for team collaboration and productivity. With its intuitive interface and secure authentication mechanisms, it serves as an effective tool for organizations of all sizes to streamline their project management processes.
@@ -264,25 +293,26 @@ Response: Should confirm the deletion
 # 4.1 Upload a File
 *********************
 request type - POST
-URL: http://localhost:3000/api/projects/:projectId/files/upload
+URL: http://localhost:3000/api/files/:projectId/upload
 Headers:  
     . Content-type: multipart/form-data
 Body:
     . In the 'Body' tab, select 'form-data'
     . Add a key named 'file' of type 'file' and choose a file from local system
 Response: Should return a file details and its URL or path
+for example: {"id":6,"filename":"1717727536733.png","path":"uploads/1717727536733.png","mimetype":"image/png","size":22958,"projectId":"15","updatedAt":"2024-06-07T02:32:16.744Z","createdAt":"2024-06-07T02:32:16.744Z"}
 
 # 4.2 Download a File
 *********************
 request type - GET
 URL: http://localhost:3000/api/files/:fileId/download
-Response: Should start the file download
+Response: Should start the file download with 200 Ok status
 
 # 4.3 Delete a File
 *********************
 request type - DELETE
 URL: http://localhost:3000/api/files/:fileId
-Response: Should confirm the deletion
+Response: Should confirm the deletion with 404 No Content status
 
 
 
