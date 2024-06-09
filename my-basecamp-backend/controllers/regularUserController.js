@@ -6,6 +6,13 @@ const bcrypt = require('bcryptjs');
 const fs = require('fs');
 const path = require('path');
 
+
+// import functions from other controllers 
+const { register, login } = require('./allUserController');
+const { createProject, deleteProject, updateProject } = require('./projectController');
+const { createTask, deleteTask, updateTask } = require('./taskController');
+const { uploadFile, downloadFile, deleteFile } = require('./fileController');
+
 // Get user profile
 exports.getUserProfile = async (req, res) => {
   try {

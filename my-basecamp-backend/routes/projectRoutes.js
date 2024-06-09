@@ -3,9 +3,9 @@
 const express = require('express');
 const router = express.Router();
 const projectController = require('../controllers/projectController');
-// const authMiddleware = require('../middleware/auth');
 const {authenticate, authorize} = require('../middleware/auth');
 const taskRoutes = require('./taskRoutes');
+const fileRoutes = require('./fileRoutes');
 
 router.post('/', authenticate, authorize(['admin', 'project_manager']), projectController.createProject);
 router.put('/:projectId', authenticate, authorize(['admin', 'project_manager']), projectController.updateProject);
@@ -15,5 +15,6 @@ router.delete('/:projectId', authenticate, authorize(['admin', 'project_manager'
 
 // Nest task routes under project routes
 router.use('/:projectId/tasks', taskRoutes);
+// router.use('/projects', fileRoutes);
 
 module.exports = router;

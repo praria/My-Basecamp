@@ -1,3 +1,5 @@
+// handles user registration and login for all users
+
 const User = require('../models/allUser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');

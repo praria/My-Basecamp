@@ -87,14 +87,5 @@ module.exports = {
   assignAdmin,
   revokeAdmin,
   register,
-  login,
-  createProject,
-  deleteProject,
-  updateProject,
-  createTask,
-  deleteTask,
-  updateTask,
-  uploadFile,
-  downloadFile,
-  deleteFile
+  login
 };

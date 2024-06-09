@@ -32,7 +32,7 @@ My Basecamp is a project management application designed to help teams efficient
 - Regular users have limited access to the application. They can view and update their profiles and interact with the tasks and files assigned to them.
 # Permissions:
 - Read projects they are assigned to
-- Read and update tasks assigned to them
+- Create, Read and update tasks assigned to them
 - download files assigned to them
 - Update their own profile information
 
