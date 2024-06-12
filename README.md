@@ -15,8 +15,8 @@ My Basecamp is a project management application designed to help teams efficient
 # Permissions:
 - Create, read, update, and delete users
 - Assign and revoke admin permissions
-- Create, read, update, and delete projects
 - Add and remove team members from projects
+- Create, read, update, and delete projects
 - Create, read, update, and delete tasks
 - Upload, download, and delete files
 
@@ -131,7 +131,7 @@ node app.js
 npm run dev 
 
 ****************************************
-# Testing API endpoints with Postman 
+# API Contract for testing endpoints with Postman 
 ****************************************
 
 # 1. User Authentication
@@ -313,6 +313,130 @@ Response: Should start the file download with 200 Ok status
 request type - DELETE
 URL: http://localhost:3000/api/files/:fileId
 Response: Should confirm the deletion with 404 No Content status
+
+# 5 User Management
+***********************
+
+# 5.1 Create User
+    Endpoint: POST http://localhost:3000/api/admin
+    Description: Create a new user.
+    Headers:
+        Authorization: Bearer <admin_token>
+        Content-Type: application/json
+    Body: 
+        {
+    "username": "emp1",
+    "password": "password123",
+    "role": "regular_user"
+    }
+    Response: 201 Created
+        {
+    "id": 16,
+    "username": "emp1",
+    "role": "regular_user",
+    "updatedAt": "2024-06-09T22:28:13.404Z",
+    "createdAt": "2024-06-09T22:28:13.404Z"
+    }
+
+# 5.2 Read User
+
+    Endpoint: GET http://localhost:3000/api/admin/:userId
+    Description: Retrieve user details.
+    Headers:
+        Authorization: Bearer <admin_token>
+    Response:
+        200 OK:
+    {
+    "id": 17,
+    "username": "emp2",
+    "role": "regular_user",
+    "createdAt": "2024-06-09T23:01:28.676Z",
+    "updatedAt": "2024-06-09T23:01:28.676Z"
+    }
+
+# 5.3 Update User
+
+    Endpoint: PUT http://localhost:3000/api/admin/:userId/role
+    Description: Update user details.
+    Headers:
+        Authorization: Bearer <admin_token>
+        Content-Type: application/json
+    Body:
+    {
+    "role": "project_manager"
+    }
+    Response: 200 OK
+
+# 5.4. Delete User
+
+    Endpoint: DELETE http://localhost:3000/api/admin/:userId
+    Description: Delete a user.
+    Headers:
+        Authorization: Bearer <admin_token>
+    Response:
+        204 No Content
+
+# 5.5. Assign Admin Permissions
+
+    Endpoint: PUT http://localhost:3000/api/admin/:userId/assignAdmin
+    Description: Assign admin role to a user.
+    Headers:
+        Authorization: Bearer <admin_token>
+    Response:
+        200 OK:
+    {
+    "message": "User assigned admin role"
+    }
+
+# 5.6. Revoke Admin Permissions
+
+    Endpoint: PUT http://localhost:3000/api/admin/:userId/revokeAdmin
+    Description: Revoke admin role from a user.
+    Headers:
+        Authorization: Bearer <admin_token>
+    Response:
+        200 OK:
+    {
+    "message": "User revoked admin role"
+    }
+
+# 5.7. Add Team Member to Project
+
+    Endpoint: POST http://localhost:3000/api/project-manager/:projectId/team
+    Description: Add a team member to a project.
+    Headers:
+        Authorization: Bearer <project-manager_token>
+        Content-Type: application/json
+    Body: 
+    {
+    "userId": 1
+    }
+    Response: 200 OK
+    {
+    "message": "Team member added to project"
+    }
+
+# 5.8. Remove Team Member from Project
+
+    Endpoint: DELETE http://localhost:3000/api/project-manager/:projectId/team/:userId
+    Description: Remove a team member from a project.
+    Headers:
+        Authorization: Bearer <project-manager_token>
+    Response:
+        200 OK:
+        {
+         "message": "Team member removed from project"
+         }
+
+
+
+
+
+
+
+
+
+
 
 
 
