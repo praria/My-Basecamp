@@ -402,10 +402,10 @@ Response: Should confirm the deletion with 404 No Content status
 
 # 5.7. Add Team Member to Project
 
-    Endpoint: POST http://localhost:3000/api/project-manager/:projectId/team
+    Endpoint: POST http://localhost:3000/api/projects/:projectId/team/:userId
     Description: Add a team member to a project.
     Headers:
-        Authorization: Bearer <project-manager_token>
+        Authorization: Bearer <admin or project-manager_token>
         Content-Type: application/json
     Body: 
     {
@@ -418,10 +418,10 @@ Response: Should confirm the deletion with 404 No Content status
 
 # 5.8. Remove Team Member from Project
 
-    Endpoint: DELETE http://localhost:3000/api/project-manager/:projectId/team/:userId
+    Endpoint: DELETE http://localhost:3000/api/projects/:projectId/team/:userId
     Description: Remove a team member from a project.
     Headers:
-        Authorization: Bearer <project-manager_token>
+        Authorization: Bearer <admin or project-manager_token>
     Response:
         200 OK:
         {

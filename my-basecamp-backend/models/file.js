@@ -29,6 +29,7 @@ const File = sequelize.define('File', {
   },
 }, {
   timestamps: true,
+  tableName: 'Files'
 });
 
 module.exports = File;

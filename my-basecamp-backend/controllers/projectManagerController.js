@@ -8,7 +8,7 @@ const path = require('path');
 
 // import functions from other controllers 
 const { register, login } = require('./allUserController');
-const { createProject, deleteProject, updateProject } = require('./projectController');
+const { createProject, deleteProject, updateProject, addTeamMember, removeTeamMember } = require('./projectController');
 const { createTask, deleteTask, updateTask } = require('./taskController');
 const { uploadFile, downloadFile, deleteFile } = require('./fileController');
 
