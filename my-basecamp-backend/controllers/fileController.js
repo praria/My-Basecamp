@@ -15,32 +15,31 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-exports.uploadFile = [
-  upload.single('file'),
-  async (req, res) => {
-    try {
-      const { projectId } = req.params;
-      const project = await Project.findByPk(projectId);
-      if (!project) {
-        return res.status(404).json({ error: 'Project not found' });
-      }
+exports.upload = upload;
 
-      const { filename, mimetype, size, path } = req.file;
-      const file = await File.create({
-        filename,
-        path,
-        mimetype,
-        size,
-        projectId
-      });
-
-      res.status(201).json(file);
-    } catch (error) {
-      console.error('Failed to upload file:', error);
-      res.status(500).json({ error: 'Failed to upload file' });
+exports.uploadFile = async (req, res) => {
+  try {
+    const { projectId } = req.params;
+    const project = await Project.findByPk(projectId);
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
     }
+
+    const { filename, mimetype, size, path: filePath } = req.file;
+    const file = await File.create({
+      filename,
+      path: filePath,
+      mimetype,
+      size,
+      projectId
+    });
+
+    res.status(201).json(file);
+  } catch (error) {
+    console.error('Failed to upload file:', error);
+    res.status(500).json({ error: 'Failed to upload file' });
   }
-];
+};
 
 exports.downloadFile = async (req, res) => {
     try {

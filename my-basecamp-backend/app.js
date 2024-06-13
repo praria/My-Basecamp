@@ -1,24 +1,35 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const sequelize = require('./config/database');
-const userRoutes = require('./routes/userRoutes');
+
+const allUserRoutes = require('./routes/allUserRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const projectManagerRoutes = require('./routes/projectManagerRoutes');
+const regularUserRoutes = require('./routes/regularUserRoutes');
+
 const projectRoutes = require('./routes/projectRoutes'); 
 const taskRoutes = require('./routes/taskRoutes');
 const fileRoutes = require('./routes/fileRoutes');
+const { authenticate, authorize } = require('./middleware/auth');
 const path = require('path');
 require('dotenv').config();
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(express.json()); // Use built-in express.json() instead of body-parser
 
 // Serve static files from the uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.use('/api/users', userRoutes);
-app.use('/api/projects', projectRoutes); 
-app.use('/api/projects/:projectId/tasks', taskRoutes);
-app.use('/api', fileRoutes);
+// public routes
+app.use('/api/users', allUserRoutes);
+
+// Protected routes
+app.use('/api/admin', authenticate, authorize(['admin']), adminRoutes);
+app.use('/api/project-manager', authenticate, authorize(['project_manager']), projectManagerRoutes);
+app.use('/api/regular-user', authenticate, authorize(['regular_user']), regularUserRoutes);
+app.use('/api/projects', authenticate, projectRoutes);
+app.use('/api/tasks', authenticate, taskRoutes);
+app.use('/api/files', authenticate, fileRoutes);
 
 // Root route handler
 app.get('/', (req, res) => {
@@ -47,7 +58,6 @@ app.get('/', (req, res) => {
     </html>
   `);
 });
-
 
 sequelize.sync()
   .then(() => {

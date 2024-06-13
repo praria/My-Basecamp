@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const User = require('./user');
 
 const Project = sequelize.define('Project', {
   name: {
@@ -14,20 +13,13 @@ const Project = sequelize.define('Project', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: User,
+      model: 'Users', // Referencing the table name directly to avoid circular dependency
       key: 'id',
     },
   },
 }, {
-  timestamps: true, // Add createdAt and updatedAt timestamps
+  timestamps: true,
+  tableName: 'Projects',
 });
-
-Project.belongsTo(User, { as: 'owner', foreignKey: 'ownerId' });
-Project.belongsToMany(User, { through: 'ProjectMembers', as: 'members' });
-
-const File = require('./file');
-Project.hasMany(File, { foreignKey: 'projectId', as: 'files' });
-File.belongsTo(Project, { foreignKey: 'projectId', as: 'project' });
-
 
 module.exports = Project;
