@@ -1,5 +1,8 @@
 const express = require('express');
+const cors = require('cors');
 const sequelize = require('./config/database');
+const path = require('path');
+require('dotenv').config();
 
 const allUserRoutes = require('./routes/allUserRoutes');
 const adminRoutes = require('./routes/adminRoutes');
@@ -10,12 +13,20 @@ const projectRoutes = require('./routes/projectRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 const fileRoutes = require('./routes/fileRoutes');
 const { authenticate, authorize } = require('./middleware/auth');
-const path = require('path');
-require('dotenv').config();
+
 
 const app = express();
 
+// Enable CORS with specific settings
+const corsOptions = {
+  origin: 'http://localhost:3000', // frontend's origin
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
+// Middleware to parse JSON bodies
 app.use(express.json()); // Use built-in express.json() instead of body-parser
+
 
 // Serve static files from the uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -61,8 +72,8 @@ app.get('/', (req, res) => {
 
 sequelize.sync()
   .then(() => {
-    app.listen(3000, () => {
-      console.log('Server is running on port 3000');
+    app.listen(5000, () => {
+      console.log('Server is running on port 5000');
     });
   })
   .catch(err => {

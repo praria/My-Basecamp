@@ -122,13 +122,14 @@ npm install multer --save
 mkdir config controllers models routes middleware
 touch app.js .gitignore .env
 
-# running the application
+# running the backend application
 - create the database file: 
 touch database.sqlite
 - run the application:
-node app.js
-- OR Run the application in the development server (In development server, nodemon restarts the server automatically whenever it detects a file change in the directory):
-npm run dev 
+******* node app.js
+OR
+- run the application in the development server (In development server, nodemon restarts the server automatically whenever it detects a file change in the directory):
+******* npm run dev 
 
 ****************************************
 # API Contract for testing endpoints with Postman 
@@ -139,7 +140,7 @@ npm run dev
 
 # 1.1 register a new user (admin or project_manager or regular_user)
 request type - POST
-URL: http://localhost:3000/api/users/register 
+URL: http://localhost:5000/api/users/register 
 Headers -> Content-Type: application/json
 JSON Body: 
 {
@@ -161,7 +162,7 @@ Response: Should return the user details without the password
 
 # Log in with a new user
 request type - POST
-URL: http://localhost:3000/api/users/login 
+URL: http://localhost:5000/api/users/login 
 Headers -> Content-Type: application/json
 JSON Body: 
 {
@@ -178,7 +179,7 @@ Response: Should return a JWT token
 
 # 2.1 Create a Project 
 request type - POST
-URL: http://localhost:3000/api/projects
+URL: http://localhost:5000/api/projects
 Headers: 
     . Content-type: application/json
     . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
@@ -191,7 +192,7 @@ Response: Should return the project details
 
 # 2.2 Get all Projects
 request type - GET
-URL: http://localhost:3000/api/projects
+URL: http://localhost:5000/api/projects
 Headers: 
     . Content-type: application/json
     . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
@@ -199,7 +200,7 @@ Response: Should return the list of projects
 
 # 2.3 Get a Specified project
 request type - GET
-URL: http://localhost:3000/api/projects/:projectId (Note: replace projectId)
+URL: http://localhost:5000/api/projects/:projectId (Note: replace projectId)
 Headers: 
     . Content-type: application/json
     . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
@@ -207,7 +208,7 @@ Response: Should return the specified project details
 
 # 2.4 Update a project
 request type - PUT
-URL: http://localhost:3000/api/projects/:projectId (Note: replace projectId)
+URL: http://localhost:5000/api/projects/:projectId (Note: replace projectId)
 Headers: 
     . Content-type: application/json
     . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
@@ -220,7 +221,7 @@ Response: Should return the updated project details
 
 # 2.5 Delete a project
 request type - Delete
-URL: http://localhost:3000/api/projects/:projectId (Note: replace projectId)
+URL: http://localhost:5000/api/projects/:projectId (Note: replace projectId)
 Headers: 
     . Content-type: application/json
     . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
@@ -231,7 +232,7 @@ Response: Should confirm the deletion
 
 # 3.1 Create a Task
 request type - POST
-URL: http://localhost:3000/api/projects/:projectId/tasks (Note: replace projectId)
+URL: http://localhost:5000/api/projects/:projectId/tasks (Note: replace projectId)
 Headers: 
     . Content-type: application/json
     . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
@@ -248,7 +249,7 @@ Response: Should return the task details
 
 # 3.2 Get all Tasks in a Project
 request type - GET
-URL: http://localhost:3000/api/projects/:projectId/tasks 
+URL: http://localhost:5000/api/projects/:projectId/tasks 
 Headers: 
     . Content-type: application/json
     . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
@@ -256,7 +257,7 @@ Response: Should return a list of tasks for the specified project
 
 # 3.3 Get a single Task by Id
 request type - GET
-URL: http://localhost:3000/api/projects/:projectId/tasks/:taskId 
+URL: http://localhost:5000/api/projects/:projectId/tasks/:taskId 
 Headers: 
     . Content-type: application/json
     . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
@@ -264,7 +265,7 @@ Response: Should return a specified task for the specified project
 
 # 3.4 Update a Task
 request type - PUT
-URL: http://localhost:3000/api/projects/:projectId/tasks/:taskId
+URL: http://localhost:5000/api/projects/:projectId/tasks/:taskId
 Headers: 
     . Content-type: application/json
     . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
@@ -281,7 +282,7 @@ Response: Should return the updated task details
 
 # 3.5 Delete a Task
 request type - POST
-URL: http://localhost:3000/api/projects/:projectId/tasks/:taskId
+URL: http://localhost:5000/api/projects/:projectId/tasks/:taskId
 Headers: 
     . Content-type: application/json
     . Authorization: Bearer <JWT_TOKEN> Note: replace <JWT_TOKEN> with the token received from login response
@@ -293,7 +294,7 @@ Response: Should confirm the deletion
 # 4.1 Upload a File
 *********************
 request type - POST
-URL: http://localhost:3000/api/files/:projectId/upload
+URL: http://localhost:5000/api/files/:projectId/upload
 Headers:  
     . Content-type: multipart/form-data
 Body:
@@ -305,20 +306,20 @@ for example: {"id":6,"filename":"1717727536733.png","path":"uploads/171772753673
 # 4.2 Download a File
 *********************
 request type - GET
-URL: http://localhost:3000/api/files/:fileId/download
+URL: http://localhost:5000/api/files/:fileId/download
 Response: Should start the file download with 200 Ok status
 
 # 4.3 Delete a File
 *********************
 request type - DELETE
-URL: http://localhost:3000/api/files/:fileId
+URL: http://localhost:5000/api/files/:fileId
 Response: Should confirm the deletion with 404 No Content status
 
 # 5 User Management
 ***********************
 
 # 5.1 Create User
-    Endpoint: POST http://localhost:3000/api/admin
+    Endpoint: POST http://localhost:5000/api/admin
     Description: Create a new user.
     Headers:
         Authorization: Bearer <admin_token>
@@ -340,7 +341,7 @@ Response: Should confirm the deletion with 404 No Content status
 
 # 5.2 Read User
 
-    Endpoint: GET http://localhost:3000/api/admin/:userId
+    Endpoint: GET http://localhost:5000/api/admin/:userId
     Description: Retrieve user details.
     Headers:
         Authorization: Bearer <admin_token>
@@ -356,7 +357,7 @@ Response: Should confirm the deletion with 404 No Content status
 
 # 5.3 Update User
 
-    Endpoint: PUT http://localhost:3000/api/admin/:userId/role
+    Endpoint: PUT http://localhost:5000/api/admin/:userId/role
     Description: Update user details.
     Headers:
         Authorization: Bearer <admin_token>
@@ -369,7 +370,7 @@ Response: Should confirm the deletion with 404 No Content status
 
 # 5.4. Delete User
 
-    Endpoint: DELETE http://localhost:3000/api/admin/:userId
+    Endpoint: DELETE http://localhost:5000/api/admin/:userId
     Description: Delete a user.
     Headers:
         Authorization: Bearer <admin_token>
@@ -378,7 +379,7 @@ Response: Should confirm the deletion with 404 No Content status
 
 # 5.5. Assign Admin Permissions
 
-    Endpoint: PUT http://localhost:3000/api/admin/:userId/assignAdmin
+    Endpoint: PUT http://localhost:5000/api/admin/:userId/assignAdmin
     Description: Assign admin role to a user.
     Headers:
         Authorization: Bearer <admin_token>
@@ -390,7 +391,7 @@ Response: Should confirm the deletion with 404 No Content status
 
 # 5.6. Revoke Admin Permissions
 
-    Endpoint: PUT http://localhost:3000/api/admin/:userId/revokeAdmin
+    Endpoint: PUT http://localhost:5000/api/admin/:userId/revokeAdmin
     Description: Revoke admin role from a user.
     Headers:
         Authorization: Bearer <admin_token>
@@ -402,7 +403,7 @@ Response: Should confirm the deletion with 404 No Content status
 
 # 5.7. Add Team Member to Project
 
-    Endpoint: POST http://localhost:3000/api/projects/:projectId/team/:userId
+    Endpoint: POST http://localhost:5000/api/projects/:projectId/team/:userId
     Description: Add a team member to a project.
     Headers:
         Authorization: Bearer <admin or project-manager_token>
@@ -418,7 +419,7 @@ Response: Should confirm the deletion with 404 No Content status
 
 # 5.8. Remove Team Member from Project
 
-    Endpoint: DELETE http://localhost:3000/api/projects/:projectId/team/:userId
+    Endpoint: DELETE http://localhost:5000/api/projects/:projectId/team/:userId
     Description: Remove a team member from a project.
     Headers:
         Authorization: Bearer <admin or project-manager_token>
@@ -427,6 +428,49 @@ Response: Should confirm the deletion with 404 No Content status
         {
          "message": "Team member removed from project"
          }
+
+
+Frontend application development using React and Material-UI
+********************************************************
+
+1. Create React App
+*********************
+Note: we might need to run the command "sudo chown -R $(whoami) ~/.npm" to change the ownership of the .npm directory and all its contents to the current user (from root user) 
+-verify the change in ownership by using the command "ls -l ~/.npm"
+-update npm to the latest version to avoid potential issues: sudo npm install -g npm@latest
+
+We use "Create-react-app" to set up a new React project. It creates a project structure with everything that is need to start developing a React application
+npx create-react-app my-basecamp-frontend
+
+Navigate to the project directory. Start the development server and open the application in default web browser: http://localhost:3000 or http://192.168.1.136:3000
+cd my-basecamp-frontend
+- Run Frontend application
+********* npm start
+
+2. Install Dependencies to enhance our application
+npm install @mui/material @emotion/react @emotion/styled axios react-router-dom notistack
+
+3. Create Folder Structure for better modularity and maintainability: 
+
+- src/components    // contains reusable UI components
+    ProjectList.js  // displays a list of projects fetched from the backend
+    ProjectForm.js  // provides a form to create a new project
+    UserList.js     // displays a list of users fetched from the backend
+    UserForm.js     // provides a form to creates a new user
+    ProjectTeam.js  // provides a form to add a team member to a project
+
+- scr/pages/    // contains page components mapped to routes
+    Home.js     // displays a welcome message
+    Projects.js // combines ProjctForm.js and ProjectList.js to handle creation and listing
+    Users.js    // combines UserForm and UserList to handle user creation and listing
+    NotFound.js // displays 404 message for unknown routes
+
+- src/services/ // Contains a service file to handle API interactions with the backend
+    api.js
+
+- App.js  // main structure of the application with routing
+- index.js  // entry point of the application
+
 
 
 
