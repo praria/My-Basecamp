@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { registerUser } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -7,6 +8,7 @@ const Register = () => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [role, setRole] = useState('regular'); // default role
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -19,6 +21,10 @@ const Register = () => {
       setError('Registration Error');
     }
   };
+
+  const handleNavigateHome = () => {
+    navigate('/');
+  }
 
   return (
     <form onSubmit={handleRegister}>
@@ -42,6 +48,7 @@ const Register = () => {
       <button type="submit">Register</button>
       {message && <p style={{ color: 'green' }}>{message}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <button type="button" onClick={handleNavigateHome}>Go to Homepage</button>
     </form>
   );
 };

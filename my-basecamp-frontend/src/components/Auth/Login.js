@@ -24,6 +24,10 @@ const Login = () => {
     }
   };
 
+  const handleNavigateHome = () => {
+    navigate('/');
+  }
+
   return (
     <Container maxWidth="sm">
       <Box sx={{ mt: 8 }}>
@@ -45,7 +49,10 @@ const Login = () => {
         />
         {error && <Typography color="error">{error}</Typography>}
         <Box sx={{ mt: 4 }}>
-          <Button variant="contained" color="primary" onClick={handleLogin}>Login</Button>
+          <Button variant="contained" color="primary" onClick={handleLogin}>Login</Button>          
+        </Box>
+        <Box sx={{ mt: 4 }}>
+          <button type="button" onClick={handleNavigateHome}>Go to Homepage</button>
         </Box>
       </Box>
     </Container>
