@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { Container, TextField, Button, Box, Typography } from '@mui/material';
+import {loginUser} from '../../services/api';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -12,9 +12,10 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      localStorage.setItem('username', username);
-      const response = await axios.post('http://localhost:5000/api/users/login', { username, password });
-      const { token } = response.data.token // based on backend response upon successful login
+      //localStorage.setItem('username', username);
+      const response = await loginUser( username, password );
+      const token = response.data.token // based on backend response upon successful login
+      console.log(token)
       localStorage.setItem('token', token);
       console.log('Login successful, navigating to dashboard...');    
       navigate('/dashboard');

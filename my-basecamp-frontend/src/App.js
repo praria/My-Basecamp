@@ -6,14 +6,14 @@ import Homepage from './components/Homepage';
 import Dashboard from './components/Dashboard';
 
 const App = () => {
-  const user = localStorage.getItem('username');
+  const token = localStorage.getItem('token');
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/dashboard" />} />
+        <Route path="/dashboard" element={token ? <Dashboard /> : <Navigate to="/dashboard" />} />
         {/* Add more routes for project management, task management, and file management */}
       </Routes>
     </Router>
