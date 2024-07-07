@@ -15,9 +15,11 @@ cd my-basecamp-frontend
 - Run Frontend application
 ********* npm start
 
-2. Install Dependencies to enhance our application
+2. Install Dependencies in root directory of frontend project to enhance our application
 npm install @mui/material @emotion/react @emotion/styled axios react-router-dom notistack
 npm install cors
+npm install @mui/icons-material
+
 
 3. Create Folder Structure for better modularity and maintainability: 
 

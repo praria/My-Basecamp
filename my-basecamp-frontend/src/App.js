@@ -4,6 +4,8 @@ import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Homepage from './components/Homepage';
 import Dashboard from './components/Dashboard';
+import ProjectManagement from './components/Admin/ProjectManagement';
+import TaskManagement from './components/Admin/TaskManagement';
 
 const App = () => {
   const token = localStorage.getItem('token');
@@ -14,6 +16,8 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={token ? <Dashboard /> : <Navigate to="/dashboard" />} />
+        <Route path="/admin/projects" element={<ProjectManagement />} />
+        <Route path="/admin/tasks" element={<TaskManagement />} />
         {/* Add more routes for project management, task management, and file management */}
       </Routes>
     </Router>
