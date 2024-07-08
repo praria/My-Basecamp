@@ -15,7 +15,7 @@ My Basecamp is a project management application designed to help teams efficient
 # Permissions:
 - Create, read, update, and delete users
 - Assign and revoke admin permissions
-- Add and remove team members from projects
+- Add and remove team members from any projects
 - Create, read, update, and delete projects
 - Create, read, update, and delete tasks
 - Upload, download, and delete files

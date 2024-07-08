@@ -33,6 +33,16 @@ const getUserById = async (id) => {
   }
 };
 
+const getAllUsers = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/admin/users`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return [];
+  }
+};
+
 const assignAdminPermission = (userId) => {
   return axios.put(`${API_URL}/admin/${userId}/assignAdmin`);
 }
@@ -59,6 +69,10 @@ const addTeamMember = (projectId, userId) => {
 
 const removeTeamMember = (projectId, userId) => {
   return axios.delete(`${API_URL}/projects/${projectId}/team/${userId}`);
+}
+
+const getTeamMembersByProject = (projectId) => {
+  return axios.get(`${API_URL}/admin/projects/${projectId}/team`);
 }
 
 const getProjects = () => {
@@ -119,6 +133,7 @@ export {
   registerUser,
   loginUser,
   getUserById,
+  getAllUsers,
   assignAdminPermission,
   revokeAdminPermission,
   createUser,
@@ -126,6 +141,7 @@ export {
   deleteUser,
   addTeamMember,
   removeTeamMember,
+  getTeamMembersByProject,
   getProjects,
   createProject,
   getProjectById,
