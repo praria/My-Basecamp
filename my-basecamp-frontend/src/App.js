@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard';
 import ProjectManagement from './components/Admin/ProjectManagement';
 import TaskManagement from './components/Admin/TaskManagement';
 import UserManagement from './components/Admin/UserManagement';
+import FileManagement from './components/Admin/FileManagement';
 
 const App = () => {
   const token = localStorage.getItem('token');
@@ -17,11 +18,12 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={token ? <Dashboard /> : <Navigate to="/dashboard" />} />
-        <Route path="/admin/projects" element={<ProjectManagement />} />
-        <Route path="/admin/tasks" element={<TaskManagement />} />
-        <Route path="/admin/users" element={<UserManagement />} />
-
-        {/* Add more routes for project management, task management, and file management */}
+        <Route path="/projects" element={<ProjectManagement />} />
+        <Route path="/tasks" element={<TaskManagement />} />
+        <Route path="/users" element={<UserManagement />} />
+        <Route path="/files" element={<FileManagement />} />
+        {/* Fallback route */}
+        <Route path="*" render={() => <div>404 Not Found</div>} />
       </Routes>
     </Router>
   );

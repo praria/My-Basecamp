@@ -42,6 +42,11 @@ app.use('/api/projects', authenticate, projectRoutes);
 app.use('/api/tasks', authenticate, taskRoutes);
 app.use('/api/files', authenticate, fileRoutes);
 
+// // sync database
+// sequelize.sync({ force: false }).then(() => {  
+//  console.log('Database synced');
+// });
+
 // Root route handler
 app.get('/', (req, res) => {
   res.send(`

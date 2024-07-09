@@ -115,19 +115,39 @@ const deleteTask = (projectId, taskId) => {
   return axios.delete(`${API_URL}/projects/${projectId}/tasks/${taskId}`);
 };
 
-const uploadFile = (projectId, file) => {
+const getFiles = async () => {
+  const response = await axios.get(`${API_URL}/files/`);
+  return response.data;
+};
+
+
+
+const uploadFile = async (projectId, file) => {
   const formData = new FormData();
   formData.append('file', file);
-  return axios.post(`${API_URL}/files/${projectId}/upload`, formData);
+
+  const response = await axios.post(`${API_URL}/files/${projectId}/upload`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+
+  return response.data;
 };
 
-const downloadFile = (fileId) => {
-  return axios.get(`${API_URL}/files/${fileId}/download`, { responseType: 'blob' });
+
+const downloadFile = async (fileId) => {
+  const response = await axios.get(`${API_URL}/files/${fileId}/download`, {
+    responseType: 'blob',
+  });
+  return response.data;
 };
 
-const deleteFile = (fileId) => {
-  return axios.delete(`${API_URL}/files/${fileId}`);
+const deleteFile = async (fileId) => {
+  const response = await axios.delete(`${API_URL}/files/${fileId}`);
+  return response.data;
 };
+
 
 export {
   registerUser,
@@ -153,6 +173,7 @@ export {
   updateTask,
   deleteTask,
   uploadFile,
+  getFiles,
   downloadFile,
   deleteFile
 };

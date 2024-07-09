@@ -38,10 +38,10 @@ const Dashboard = () => {
       <Box sx={{ textAlign: 'center', mt: 8 }}>
         <Typography variant="h4" gutterBottom>Welcome, {username}</Typography>
         <Box sx={{ mt: 4 }}>
-          {role === 'admin' && <Button variant="contained" color="secondary" component={Link} to="/admin/users" sx={{ mr: 2 }}>User Management</Button>}
-          {role === 'admin' && <Button variant="contained" color="secondary" component={Link} to="/admin/projects" sx={{ mr: 2 }}>Project Management</Button>}
-          {role === 'admin' && <Button variant="contained" color="secondary" component={Link} to="/admin/tasks" sx={{ mr: 2 }}>Task Management</Button>}
-          {role === 'admin' && <Button variant="contained" color="secondary" component={Link} to="/admin/files" sx={{ mr: 2 }}>File Management</Button>}
+          {role === 'admin' && <Button variant="contained" color="secondary" component={Link} to="/users" sx={{ mr: 2 }}>User Management</Button>}
+          {role === 'admin' && <Button variant="contained" color="secondary" component={Link} to="/projects" sx={{ mr: 2 }}>Project Management</Button>}
+          {role === 'admin' && <Button variant="contained" color="secondary" component={Link} to="/tasks" sx={{ mr: 2 }}>Task Management</Button>}
+          {role === 'admin' && <Button variant="contained" color="secondary" component={Link} to="/files" sx={{ mr: 2 }}>File Management</Button>}
           {role === 'project_manager' && <Button variant="contained" color="secondary" component={Link} to="/project_manager/projects" sx={{ mr: 2 }}>My Projects</Button>}
           {role === 'regular_user' && <Button variant="contained" color="secondary" component={Link} to="/regular_user/tasks" sx={{ mr: 2 }}>My Tasks</Button>}
         </Box>
