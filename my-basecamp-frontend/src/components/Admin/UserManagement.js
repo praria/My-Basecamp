@@ -3,6 +3,8 @@ import { Container, Typography, Button, TextField, List, ListItem, ListItemText,
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { getAllUsers, getTeamMembersByProject, assignAdminPermission, revokeAdminPermission, createUser, updateUser, deleteUser, addTeamMember, removeTeamMember } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
+
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
@@ -114,8 +116,20 @@ const UserManagement = () => {
     }
   };
 
+    // for navigation
+    const navigate = useNavigate();
+    const handleNavigateDashboard = () => {
+      navigate('/dashboard');
+    }
+
+
   return (
     <Container>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+        <Button variant="text" color="inherit" onClick={handleNavigateDashboard}>
+          Go to Dashboard
+        </Button>
+      </Box>
       <Typography variant="h4" gutterBottom>User Management</Typography>
       <Box my={2}>
         <TextField

@@ -12,7 +12,6 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      //localStorage.setItem('username', username);
       const response = await loginUser( username, password );
       const token = response.data.token // based on backend response upon successful login
       console.log(token)
@@ -32,6 +31,11 @@ const Login = () => {
   return (
     <Container maxWidth="sm">
       <Box sx={{ mt: 8 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <Button variant="text" color="inherit" onClick={handleNavigateHome}>
+      Go to Homepage
+      </Button>
+      </Box>
         <Typography variant="h4" gutterBottom>Login</Typography>
         <TextField
           label="Username"
@@ -51,10 +55,7 @@ const Login = () => {
         {error && <Typography color="error">{error}</Typography>}
         <Box sx={{ mt: 4 }}>
           <Button variant="contained" color="primary" onClick={handleLogin}>Login</Button>          
-        </Box>
-        <Box sx={{ mt: 4 }}>
-          <button type="button" onClick={handleNavigateHome}>Go to Homepage</button>
-        </Box>
+        </Box>        
       </Box>
     </Container>
   );

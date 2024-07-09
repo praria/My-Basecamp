@@ -3,6 +3,7 @@ import { createProject, getProjects, updateProject, deleteProject } from '../../
 import { Container, Typography, Button, TextField, List, ListItem, Box, IconButton, ListItemText } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useNavigate } from 'react-router-dom';
 
 
 const ProjectManagement = () => {
@@ -52,8 +53,19 @@ const ProjectManagement = () => {
     }
   };
 
+  // for navigation
+  const navigate = useNavigate();
+  const handleNavigateDashboard = () => {
+    navigate('/dashboard');
+  }
+
   return (
     <Container>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+        <Button variant="text" color="inherit" onClick={handleNavigateDashboard}>
+          Go to Dashboard
+        </Button>
+      </Box>
       <Typography variant="h4" gutterBottom>Project Management</Typography>
       <div>
         <TextField

@@ -3,6 +3,8 @@ import { createTask, getTasks, updateTask, deleteTask } from '../../services/api
 import { Container, Typography, Button, TextField, List, ListItem, Box, IconButton, ListItemText } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useNavigate } from 'react-router-dom';
+
 
 const TaskManagement = () => {
   const [tasks, setTasks] = useState([]);
@@ -54,8 +56,20 @@ const TaskManagement = () => {
     }
   };
 
+    // for navigation
+    const navigate = useNavigate();
+    const handleNavigateDashboard = () => {
+      navigate('/dashboard');
+    }
+
+
   return (
     <Container>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+        <Button variant="text" color="inherit" onClick={handleNavigateDashboard}>
+          Go to Dashboard
+        </Button>
+      </Box>
       <Typography variant="h4" gutterBottom>Task Management</Typography>
       <TextField
         label="Project ID for Loading Tasks"

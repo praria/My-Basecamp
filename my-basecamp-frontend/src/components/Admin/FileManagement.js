@@ -16,6 +16,8 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import { getFiles, uploadFile, downloadFile, deleteFile } from '../../services/api.js';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 const FileManagement = () => {
   const { projectId: urlProjectId } = useParams();
@@ -80,8 +82,20 @@ const FileManagement = () => {
     setLoading(false);
   };
 
+    // for navigation
+    const navigate = useNavigate();
+    const handleNavigateDashboard = () => {
+      navigate('/dashboard');
+    }
+
+
   return (
     <Container>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+        <Button variant="text" color="inherit" onClick={handleNavigateDashboard}>
+          Go to Dashboard
+        </Button>
+      </Box>
       <Typography variant="h4" gutterBottom>File Management</Typography>
       {!projectId && (
         <Paper elevation={3} style={{ padding: '16px', marginBottom: '16px' }}>
