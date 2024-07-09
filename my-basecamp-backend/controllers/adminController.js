@@ -1,10 +1,13 @@
-const User = require('../models/allUser');
-const Project = require('../models/project');
+//const User = require('../models/allUser');
+//const Project = require('../models/project');
+const { Project, User } = require('../models/associations');
 const Task = require('../models/task');
 const File = require('../models/file');
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
 const path = require('path');
+
+
 
 // import functions from other controllers 
 const { register, login } = require('./allUserController');
@@ -46,6 +49,16 @@ const updateUserRole = async (req, res) => {
   }
 };
 
+const readAllUsers = async (req, res) => {
+  try {
+    const users = await User.findAll({ attributes: { exclude: ['password'] } });
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to read users' });
+  }
+};
+
+
 const readUser = async (req, res) => {
   const { userId } = req.params;
   try {
@@ -58,6 +71,27 @@ const readUser = async (req, res) => {
     res.status(500).json({ error: 'Failed to read user' });
   }
 };
+
+const getTeamMembersByProject = async (req, res) => {
+  const { projectId } = req.params;
+  try {
+    
+    const project = await Project.findByPk(projectId, {
+      include: {
+        model: User,
+        as: 'teamMembers', // The alias used in the relationship definition
+        attributes: { exclude: ['password'] }
+      }
+    });
+    if (!project) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+    res.json(project.teamMembers);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to get team members' });
+  }
+};
+
 
 
 const assignAdmin = async (req, res) => {
@@ -98,6 +132,8 @@ const revokeAdmin = async (req, res) => {
 };
 
 module.exports = {
+  readAllUsers,
+  getTeamMembersByProject,
   createUser,
   deleteUser,
   updateUserRole,

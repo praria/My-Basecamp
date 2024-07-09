@@ -20,14 +20,14 @@ exports.upload = upload;
 exports.uploadFile = async (req, res) => {
   try {
     const { projectId } = req.params;
+   
     const project = await Project.findByPk(projectId);
     if (!project) {
       return res.status(404).json({ error: 'Project not found' });
     }
-
-    const { filename, mimetype, size, path: filePath } = req.file;
+    const { originalname, filename, mimetype, size, path: filePath } = req.file;
     const file = await File.create({
-      filename,
+      filename: originalname,
       path: filePath,
       mimetype,
       size,
@@ -88,5 +88,14 @@ exports.downloadFile = async (req, res) => {
     } catch (error) {
       console.error('Failed to delete file:', error);
       res.status(500).json({ error: 'Failed to delete file' });
+    }
+  };
+
+  exports.getAllFiles = async (req, res) => {
+    try {
+      const files = await File.findAll();
+      res.json(files);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch files' });
     }
   };
