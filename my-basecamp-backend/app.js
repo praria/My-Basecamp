@@ -70,6 +70,10 @@ app.get('/', (req, res) => {
   `);
 });
 
+// Sync database and start server
+// Note: using sequelize.sync({ force: true }) will drop and recreate the tables every time we start the server.
+// This is useful for development but should be removed or changed to { alter: true } in a production environment to avoid data loss.
+// Use 'alter' to apply necessary changes without losing data
 sequelize.sync()
   .then(() => {
     app.listen(5000, () => {

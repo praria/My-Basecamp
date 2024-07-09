@@ -1,12 +1,13 @@
 //const User = require('../models/allUser');
 //const Project = require('../models/project');
+const { Project, User } = require('../models/associations');
 const Task = require('../models/task');
 const File = require('../models/file');
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
 const path = require('path');
 
-const { Project, User } = require('../models/associations');
+
 
 // import functions from other controllers 
 const { register, login } = require('./allUserController');

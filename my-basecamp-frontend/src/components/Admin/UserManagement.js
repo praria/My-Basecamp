@@ -140,7 +140,8 @@ const UserManagement = () => {
             onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
           >
             <MenuItem value="admin">Admin</MenuItem>
-            <MenuItem value="user">User</MenuItem>
+            <MenuItem value="project_manager">Project Manager</MenuItem>
+            <MenuItem value="regular_user">Regular User</MenuItem>
           </Select>
         </FormControl>
         <Button variant="contained" color="primary" onClick={handleCreateUser} fullWidth>
