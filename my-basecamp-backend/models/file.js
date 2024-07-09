@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Project = require('./project'); // Make sure to import the Project model
 
 const File = sequelize.define('File', {
   filename: {
@@ -20,16 +21,15 @@ const File = sequelize.define('File', {
   },
   projectId: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     references: {
-      model: 'Project',
-      key: 'id',
+      model: Project,
+      key: 'id', // Reference the 'id' field in the Projects table
     },
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
   },
 }, {
   timestamps: true,
-  tableName: 'Files'
+  tableName: 'Files',
 });
 
 module.exports = File;
