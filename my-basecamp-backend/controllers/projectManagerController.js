@@ -20,7 +20,7 @@ exports.addTeamMember = async (req, res) => {
     if (!project || !user) {
       return res.status(404).json({ error: 'Project or user not found' });
     }
-    await project.addUser(user); // Assuming a many-to-many relationship between projects and users
+    await project.addUser(user); 
     res.status(200).send();
   } catch (error) {
     res.status(500).json({ error: 'Failed to add team member' });
@@ -35,7 +35,7 @@ exports.removeTeamMember = async (req, res) => {
     if (!project || !user) {
       return res.status(404).json({ error: 'Project or user not found' });
     }
-    await project.removeUser(user); // Assuming a many-to-many relationship between projects and users
+    await project.removeUser(user); 
     res.status(200).send();
   } catch (error) {
     res.status(500).json({ error: 'Failed to remove team member' });
