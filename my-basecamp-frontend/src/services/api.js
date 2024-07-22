@@ -1,16 +1,10 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api';
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API_BASE_URL,
+});
 
-const registerUser = (username, password, role) => {
-  return axios.post(`${API_URL}/users/register`, { username, password, role });
-};
-
-const loginUser = (username, password) => {
-  return axios.post(`${API_URL}/users/login`, { username, password });
-};
-
-axios.interceptors.request.use(
+api.interceptors.request.use(
   config => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -23,9 +17,17 @@ axios.interceptors.request.use(
   }
 );
 
+const registerUser = (username, password, role) => {
+  return api.post('/users/register', { username, password, role });
+};
+
+const loginUser = (username, password) => {
+  return api.post('/users/login', { username, password });
+};
+
 const getUserById = async (id) => {
   try {
-    const response = await axios.get(`${API_URL}/admin/${id}`);
+    const response = await api.get(`/admin/${id}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching user details:', error);
@@ -35,7 +37,7 @@ const getUserById = async (id) => {
 
 const getAllUsers = async () => {
   try {
-    const response = await axios.get(`${API_URL}/admin/users`);
+    const response = await api.get('/admin/users');
     return response.data;
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -44,89 +46,87 @@ const getAllUsers = async () => {
 };
 
 const assignAdminPermission = (userId) => {
-  return axios.put(`${API_URL}/admin/${userId}/assignAdmin`);
-}
+  return api.put(`/admin/${userId}/assignAdmin`);
+};
 
 const revokeAdminPermission = (userId) => {
-  return axios.put(`${API_URL}/admin/${userId}/revokeAdmin`);
-}
+  return api.put(`/admin/${userId}/revokeAdmin`);
+};
 
 const createUser = (username, password, role) => {
-  return axios.post(`${API_URL}/admin`, { username, password, role });
+  return api.post('/admin', { username, password, role });
 };
 
 const updateUser = (id, role) => {
-  return axios.put(`${API_URL}/admin/${id}/role`, role);
+  return api.put(`/admin/${id}/role`, role);
 };
 
 const deleteUser = (id) => {
-  return axios.delete(`${API_URL}/admin/${id}`);
+  return api.delete(`/admin/${id}`);
 };
 
 const addTeamMember = (projectId, userId) => {
-  return axios.post(`${API_URL}/projects/${projectId}/team/${userId}`);
-}
+  return api.post(`/projects/${projectId}/team/${userId}`);
+};
 
 const removeTeamMember = (projectId, userId) => {
-  return axios.delete(`${API_URL}/projects/${projectId}/team/${userId}`);
-}
+  return api.delete(`/projects/${projectId}/team/${userId}`);
+};
 
 const getTeamMembersByProject = (projectId) => {
-  return axios.get(`${API_URL}/admin/projects/${projectId}/team`);
-}
+  return api.get(`/admin/projects/${projectId}/team`);
+};
 
 const getProjects = () => {
-  return axios.get(`${API_URL}/projects`);
+  return api.get('/projects');
 };
 
 const createProject = (name, description) => {
-  return axios.post(`${API_URL}/projects`, {name, description});
+  return api.post('/projects', { name, description });
 };
 
 const updateProject = (id, name, description) => {
-  return axios.put(`${API_URL}/projects/${id}`, {name, description});
+  return api.put(`/projects/${id}`, { name, description });
 };
 
 const getProjectById = (id) => {
-  return axios.get(`${API_URL}/projects/${id}`);
-}
+  return api.get(`/projects/${id}`);
+};
 
 const deleteProject = (id) => {
-  return axios.delete(`${API_URL}/projects/${id}`);
+  return api.delete(`/projects/${id}`);
 };
 
 const createTask = (projectId, title, description, status, dueDate, assignedTo) => {
-  return axios.post(`${API_URL}/projects/${projectId}/tasks`, {title, description, status, dueDate, assignedTo});
+  return api.post(`/projects/${projectId}/tasks`, { title, description, status, dueDate, assignedTo });
 };
 
 const getTasks = (projectId) => {
-  return axios.get(`${API_URL}/projects/${projectId}/tasks`);
+  return api.get(`/projects/${projectId}/tasks`);
 };
 
 const getTasksById = (projectId, taskId) => {
-  return axios.get(`${API_URL}/projects/${projectId}/tasks/${taskId}`);
+  return api.get(`/projects/${projectId}/tasks/${taskId}`);
 };
 
-const updateTask = (taskId, projectId, {title, description, status, dueDate, assignedTo}) => {
-  return axios.put(`${API_URL}/projects/${projectId}/tasks/${taskId}`, {title, description, status, dueDate, projectId, assignedTo});
+const updateTask = (taskId, projectId, { title, description, status, dueDate, assignedTo }) => {
+  return api.put(`/projects/${projectId}/tasks/${taskId}`, { title, description, status, dueDate, projectId, assignedTo });
 };
 
 const deleteTask = (projectId, taskId) => {
-  return axios.delete(`${API_URL}/projects/${projectId}/tasks/${taskId}`);
+  return api.delete(`/projects/${projectId}/tasks/${taskId}`);
 };
 
 const getFiles = async () => {
-  const response = await axios.get(`${API_URL}/files/`);
+  const response = await api.get('/files/');
   return response.data;
 };
-
-
 
 const uploadFile = async (projectId, file) => {
   const formData = new FormData();
   formData.append('file', file);
 
-  const response = await axios.post(`${API_URL}/files/${projectId}/upload`, formData, {
+  const response = await api.post(`/files/${projectId}/upload`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
@@ -135,19 +135,17 @@ const uploadFile = async (projectId, file) => {
   return response.data;
 };
 
-
 const downloadFile = async (fileId) => {
-  const response = await axios.get(`${API_URL}/files/${fileId}/download`, {
+  const response = await api.get(`/files/${fileId}/download`, {
     responseType: 'blob',
   });
   return response.data;
 };
 
 const deleteFile = async (fileId) => {
-  const response = await axios.delete(`${API_URL}/files/${fileId}`);
+  const response = await api.delete(`/files/${fileId}`);
   return response.data;
 };
-
 
 export {
   registerUser,

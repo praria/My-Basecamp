@@ -1,9 +1,21 @@
 # My-Basecamp
 ***************
+
+## Table of Contents
+- Introduction
+- Key Features
+- Architecture
+- Technologies Used
+- Usage 
+- My Basecamp Frontend application
+- My Basecamp Backend application
+
+## Introduction
+*******************
 My Basecamp is a project management application designed to help teams efficiently organize and manage their projects, tasks, and files. It provides a user-friendly interface for users to create, update, and track projects and tasks, as well as upload and manage project-related files.
 
-# Key Features
-****************
+## Key Features
+*********************
 
 # 1 User Authentication and Authorization
 - Users can register and log in to the application securely.
@@ -53,9 +65,8 @@ My Basecamp is a project management application designed to help teams efficient
 - Download files that are uploaded to the application.
 - Delete files when they are no longer needed.
 
-# Architecture
-***************
-
+## Architecture
+**********************
 The application follows a Model-View-Controller (MVC) architecture for structured development and maintenance. Here's an overview of each component:
 # Models: 
 Represent the data structures used in the application. These include models for users, projects, tasks, and files.
@@ -64,7 +75,7 @@ Handle the application's logic and business rules. Each controller corresponds t
 # Routes: 
 Define the endpoints and route handlers for handling HTTP requests. Routes are organized based on the resource they operate on (e.g., user routes, project routes, task routes, file routes).
 # Middleware: 
-Provides reusable functions to intercept and process incoming requests. Middleware is used for authentication and authorization to secure routes and restrict access based on user 
+Provides reusable functions to intercept and process incoming requests such as  authentication and authorization to secure routes and restrict access based on user 
 roles.
 
 # Technologies Used:
@@ -100,36 +111,71 @@ roles.
 - Download files using the /files/:fileId/download endpoint with the file ID.
 - Delete files using the /files/:fileId endpoint with the file ID.
 
-# Conclusion
-My Basecamp provides a robust platform for managing projects, tasks, and files, offering essential features for team collaboration and productivity. With its intuitive interface and secure authentication mechanisms, it serves as an effective tool for organizations of all sizes to streamline their project management processes.
+
+# My Basecamp Backend application
+**********************************
+
+## Table of Backend Contents
+- Backend Introduction
+- Setting up the environment
+- Running the Application
+- Project Structure
+- API Contract for testing endpoints with Postman 
 
 
-*******************************
-# Development and Testing
-*******************************
+## Backend Introduction
+This backend application is build with Node.js with the Express framework and SQLite database. It provides a robust and efficient server-side solution for managing data and handling HTTP requests.
 
-# Stage 1: Initial setup for building the Backend 
-
-# Initialize a new Node.js project in directory my-backcamp-backend
+## Setting up the environment
+1. Initialize a new Node.js project in directory my-backcamp-backend
 npm init -y
-# Install the necessary dependencies
+2. Installing Dependencies
 npm install express sqlite3 sequelize bcryptjs jsonwebtoken body-parser dotenv
+npm install multer --save (file handling Packages in Node.js)
 
-# Install file handling Packages in Node.js application using Express framework
-npm install multer --save 
-
-# create the project structure
-mkdir config controllers models routes middleware
-touch app.js .gitignore .env
-
-# running the backend application
-- create the database file: 
-touch database.sqlite
-- run the application:
-******* node app.js
+## running the backend application
+******************************************
+run the application:
+node app.js
 OR
-- run the application in the development server (In development server, nodemon restarts the server automatically whenever it detects a file change in the directory):
-******* npm run dev 
+run the application in the development server 
+npm run dev 
+
+## Backend Project Structure
+my-basecamp-backend/
+├── config/
+│   └── database.js
+├── controllers/
+│   └── adminController.js
+│   └── allUserController.js
+│   └── fileController.js
+│   └── projectController.js
+│   └── projectManagerController.js
+│   └── regularUserController.js
+│   └── taskController.js
+├── middleware/
+│   └── auth.js
+├── models/
+│   └── allUser.js
+│   └── associations.js
+│   └── file.js
+│   └── project.js
+│   └── projectTeam.js
+│   └── task.js
+├── routes/
+│   ├── adminRoutes.js
+│   ├── allUserRoutes.js
+│   ├── fileRoutes.js
+│   ├── projectManagerRoutes.js
+│   ├── projectRoutes.js
+│   ├── regularUserRoutes.js
+│   └── taskRoutes.js
+├── database.sqlite
+├── app.js
+├── .env
+├── .gitignore
+└── package.json
+
 
 ****************************************
 # API Contract for testing endpoints with Postman 
@@ -430,74 +476,64 @@ Response: Should confirm the deletion with 404 No Content status
          }
 
 
+# My Basecamp Frontend Application
+***************************************
 
+## Table of Frontend Contents
+- Frontend Introduction
+- Getting Started
+- Running the Application
+- Installing Dependencies
+- Project Structure
 
+## Introduction
+It is built using React and Material-UI to provide a modern and responsive user interface.
 
+## Getting Started
+To set up a new React project, we use Create React App. It sets up a project structure with everything needed to start developing a React application.
+1. Update npm to the Latest Version:
+    sudo npm install -g npm@latest
+2. Create a New React Project:
+    npx create-react-app my-basecamp-frontend
+3. Navigate to the Project Directory:
+    cd my-basecamp-frontend
+4. Start the Development Server:
+    npm start
 
+## Running the Application
+To run the frontend application:
+npm start
 
-
-**************************************************************
-
-Frontend application development using React and Material-UI
-
-***************************************************************
-
-1. Create React App
-*********************
-Note: we might need to run the command "sudo chown -R $(whoami) ~/.npm" to change the ownership of the .npm directory and all its contents to the current user (from root user) 
--verify the change in ownership by using the command "ls -l ~/.npm"
--update npm to the latest version to avoid potential issues: sudo npm install -g npm@latest
-
-We use "Create-react-app" to set up a new React project. It creates a project structure with everything that is need to start developing a React application
-npx create-react-app my-basecamp-frontend
-
-Navigate to the project directory. Start the development server and open the application in default web browser: http://localhost:3000 or http://192.168.1.136:3000
-cd my-basecamp-frontend
-- Run Frontend application
-********* npm start
-
-2. Install Dependencies to enhance our application
+## Install Dependencies 
+Install the necessary dependencies to enhance the application
 npm install @mui/material @emotion/react @emotion/styled axios react-router-dom notistack
+npm install cors
+npm install @mui/icons-material
 
-3. Create Folder Structure for better modularity and maintainability: 
-
-- src/components    // contains reusable UI components
-    ProjectList.js  // displays a list of projects fetched from the backend
-    ProjectForm.js  // provides a form to create a new project
-    UserList.js     // displays a list of users fetched from the backend
-    UserForm.js     // provides a form to creates a new user
-    ProjectTeam.js  // provides a form to add a team member to a project
-
-- scr/pages/    // contains page components mapped to routes
-    Home.js     // displays a welcome message
-    Projects.js // combines ProjctForm.js and ProjectList.js to handle creation and listing
-    Users.js    // combines UserForm and UserList to handle user creation and listing
-    NotFound.js // displays 404 message for unknown routes
-
-- src/services/ // Contains a service file to handle API interactions with the backend
-    api.js
-
-- App.js  // main structure of the application with routing
-- index.js  // entry point of the application
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## Frontend Project Structure
+my-basecamp-frontend/
+├── src/
+│   ├── Homepage.js/
+│   ├── Dashboard.js/
+│   ├── Auth/      
+│   │   ├── Login.js     
+│   │   └── Register.js    
+│   ├── Admin/           
+│   │   ├── FileManagement.js      
+│   │   ├── ProjectManagement.js  
+│   │   ├── TaskManagement.js     
+│   │   └── UserMangement.js 
+│   ├── ProjectManager/           
+│   │   ├── ProjectFiles.js      
+│   │   └── ProjectTasks.js 
+│   ├── User/           
+│   │   ├── AssignedFiles.js      
+│   │   ├── AssignedTasks.js  
+│   │   └── Projfile.js 
+│   ├── services/        
+│   │   └── api.js
+│   ├── App.js         
+│   └── index.js         
+├── .env               
+└─── package.json
 
