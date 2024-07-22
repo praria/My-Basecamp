@@ -17,7 +17,7 @@ const { authenticate, authorize } = require('./middleware/auth');
 
 const app = express();
 
-// Enable CORS with specific settings
+
 const corsOptions = {
   origin: `http://localhost:${process.env.REACT_APP_FRONTEND_PORT}`, 
   optionsSuccessStatus: 200
@@ -25,7 +25,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Middleware to parse JSON bodies
-app.use(express.json()); // Use built-in express.json() instead of body-parser
+app.use(express.json()); 
 
 
 // Serve static files from the uploads directory
@@ -42,10 +42,6 @@ app.use('/api/projects', authenticate, projectRoutes);
 app.use('/api/tasks', authenticate, taskRoutes);
 app.use('/api/files', authenticate, fileRoutes);
 
-// // sync database
-// sequelize.sync({ force: false }).then(() => {  
-//  console.log('Database synced');
-// });
 
 // Root route handler
 app.get('/', (req, res) => {
@@ -75,13 +71,10 @@ app.get('/', (req, res) => {
   `);
 });
 
-// Sync database and start server
-// Note: using sequelize.sync({ force: true }) will drop and recreate the tables every time we start the server.
-// This is useful for development but should be removed or changed to { alter: true } in a production environment to avoid data loss.
-// Use 'alter' to apply necessary changes without losing data
+
 sequelize.sync()
   .then(() => {
-    const port = process.env.PORT || 5000;
+    const port = process.env.PORT;
     app.listen(port, () => {
       console.log(`Server is running on port ${port}`);
     });
