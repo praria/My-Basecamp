@@ -8,7 +8,7 @@ const ProjectTeam = require('../models/projectTeam');
 exports.createProject = async (req, res) => {
   try {
     const { name, description } = req.body;
-    const ownerId = req.user.id; // Assuming req.user contains the authenticated user's info
+    const ownerId = req.user.id; 
     if (!name) {
       return res.status(400).json({ error: 'Project name is required' });
     }
@@ -48,7 +48,7 @@ exports.getAllProjects = async (req, res) => {
     const projects = await Project.findAll();
     res.status(200).json(projects);
   } catch (error) {
-    console.error('Failed to retrieve projects:', error); // Log the error details
+    console.error('Failed to retrieve projects:', error); 
     res.status(500).json({ error: 'Failed to retrieve projects' });
   }
 };
@@ -61,7 +61,7 @@ exports.getProjectById = async (req, res) => {
     }
     res.status(200).json(project);
   } catch (error) {
-    console.error('Failed to retrieve project:', error); // Log the error details
+    console.error('Failed to retrieve project:', error); 
     res.status(500).json({ error: 'Failed to retrieve project' });
   }
 };
@@ -73,7 +73,7 @@ exports.deleteProject = async (req, res) => {
     if (!result) {
       return res.status(404).json({ error: 'Project not found' });
     }
-    res.status(204).send(); // 204 No Content status (standard practice) cannot contain message body
+    res.status(204).send(); 
   } catch (error) {
     console.error('Failed to delete project:', error);
     res.status(500).json({ error: 'Failed to delete project' });
