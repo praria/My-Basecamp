@@ -42,3 +42,17 @@ exports.login = async (req, res) => {
   }
 };
 
+
+exports.getCurrentUser = async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id); // Assuming you are using Sequelize
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
