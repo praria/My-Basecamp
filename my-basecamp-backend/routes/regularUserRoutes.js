@@ -9,6 +9,7 @@ const { authenticate, authorize } = require('../middleware/auth');
 
 const router = express.Router();
 
+
 router.get('/profile', authenticate, authorize(['regular_user', 'admin']), getUserProfile);
 router.put('/profile', authenticate, authorize(['regular_user', 'admin']), updateUserProfile);
 

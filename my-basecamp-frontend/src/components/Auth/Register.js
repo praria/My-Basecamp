@@ -7,11 +7,11 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const [role, setRole] = useState('regular'); // default role
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    const role = 'admin' // Default role
     try {
       await registerUser(username, password, role);
       setMessage('Successfully registered');
@@ -39,12 +39,7 @@ const Register = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
-      />
-      <select value={role} onChange={(e) => setRole(e.target.value)}>
-        <option value="admin">Admin</option>
-        <option value="project_manager">Project Manager</option>
-        <option value="regular">Regular User</option>
-      </select>
+      />      
       <button type="submit">Register</button>
       {message && <p style={{ color: 'green' }}>{message}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}

@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Project = require('./project'); // Make sure to import the Project model
+const Project = require('./project'); 
 
 const File = sequelize.define('File', {
   filename: {
